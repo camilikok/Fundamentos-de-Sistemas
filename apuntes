@@ -1,0 +1,219 @@
+ChatGPT dijo:
+Memoria guardada actualizada
+¡Claro! Aquí tienes una recopilación de apuntes amplia, bien estructurada y lista para copiar en GitHub, perfecta como material de estudio a largo plazo. Incluye definiciones, estructuras, conceptos clave, algoritmos y ejemplos, incluyendo también recursividad al final.
+
+🧠 Apuntes de Estructuras de Datos – Grafos, Recorridos y Recursividad
+📘 1. Introducción a los Grafos
+Un grafo es una estructura de datos no lineal que representa relaciones entre pares de elementos.
+
+🧱 Componentes:
+Vértice (nodo): Representa una entidad (ciudad, persona, estación, etc.)
+
+Arista (conexión): Une dos vértices. Puede tener dirección o peso.
+
+📂 Tipos de grafos:
+Dirigido: Las aristas tienen dirección (v1 → v2)
+
+No dirigido: Las aristas no tienen dirección (v1 — v2)
+
+Ponderado: Las aristas tienen un valor numérico (peso/costo/distancia)
+
+No ponderado: Todas las conexiones tienen peso igual o nulo
+
+📊 Propiedades:
+Grado de un nodo:
+
+No dirigido: número total de aristas conectadas
+
+Dirigido:
+
+Grado de entrada (in-degree): nº de aristas que llegan
+
+Grado de salida (out-degree): nº de aristas que salen
+
+Camino: Secuencia de nodos conectados por aristas
+
+Ciclo: Camino que inicia y termina en el mismo nodo
+
+Adyacencia: Relación directa entre nodos conectados
+
+🗂️ 2. Representación de Grafos
+🔹 Matriz de adyacencia:
+java
+Copiar
+Editar
+int[][] grafo = new int[nodos][nodos];
+Útil para grafos densos (muchas conexiones)
+
+grafo[i][j] = 1 si hay conexión entre i y j
+
+🔹 Lista de adyacencia:
+java
+Copiar
+Editar
+List<List<Integer>> grafo = new ArrayList<>();
+Mejor para grafos dispersos (pocas conexiones)
+
+🔁 3. Recorridos en Grafos
+🔸 DFS (Depth-First Search)
+Explora lo más profundo posible antes de retroceder
+
+Usa pila o recursión
+
+java
+Copiar
+Editar
+void dfs(int nodo) {
+    visitado[nodo] = true;
+    for (int vecino : grafo[nodo]) {
+        if (!visitado[vecino]) {
+            dfs(vecino);
+        }
+    }
+}
+🔸 BFS (Breadth-First Search)
+Recorre el grafo por niveles
+
+Usa cola (FIFO)
+
+java
+Copiar
+Editar
+void bfs(int inicio) {
+    Queue<Integer> cola = new LinkedList<>();
+    visitado[inicio] = true;
+    cola.add(inicio);
+
+    while (!cola.isEmpty()) {
+        int actual = cola.poll();
+        for (int vecino : grafo[actual]) {
+            if (!visitado[vecino]) {
+                visitado[vecino] = true;
+                cola.add(vecino);
+            }
+        }
+    }
+}
+📏 4. Algoritmos de Ruta Más Corta
+✅ Dijkstra
+Encuentra la ruta más corta desde un nodo a todos los demás
+
+Solo funciona con pesos positivos
+
+java
+Copiar
+Editar
+PriorityQueue<Par> pq = new PriorityQueue<>();
+pq.add(new Par(origen, 0));
+dist[origen] = 0;
+
+while (!pq.isEmpty()) {
+    Par actual = pq.poll();
+    for (Par vecino : grafo.get(actual.nodo)) {
+        int nuevaDist = dist[actual.nodo] + vecino.peso;
+        if (nuevaDist < dist[vecino.nodo]) {
+            dist[vecino.nodo] = nuevaDist;
+            pq.add(new Par(vecino.nodo, nuevaDist));
+        }
+    }
+}
+✅ A* (A estrella)
+Usa heurística para optimizar búsqueda
+
+Fórmula: f(n) = g(n) + h(n)
+
+g(n): costo real desde inicio hasta n
+
+h(n): estimación (heurística) desde n al objetivo
+
+f(n): costo estimado total del camino
+
+📦 5. Estructuras de Datos Relacionadas
+🔹 Pilas (Stacks)
+LIFO: Last In, First Out
+
+java
+Copiar
+Editar
+Stack<Integer> pila = new Stack<>();
+pila.push(5);    // insertar
+pila.pop();      // eliminar tope
+pila.peek();     // ver tope
+🔹 Colas (Queues)
+FIFO: First In, First Out
+
+java
+Copiar
+Editar
+Queue<Integer> cola = new LinkedList<>();
+cola.add(5);     // insertar
+cola.poll();     // eliminar primero
+cola.peek();     // ver primero
+🔄 6. Recursividad
+🧠 ¿Qué es?
+Un algoritmo recursivo es aquel que se llama a sí mismo para resolver subproblemas más pequeños del problema original.
+
+🧱 Estructura básica:
+java
+Copiar
+Editar
+tipo funcion(tipo parametro) {
+    if (caso_base) {
+        return resultado;
+    } else {
+        return funcion(caso_mas_pequeno);
+    }
+}
+✅ Características:
+Caso base claro (cuando termina)
+
+Llamada a sí misma con una versión reducida del problema
+
+Puede causar StackOverflow si no se detiene
+
+🔢 Ejemplo: Factorial
+java
+Copiar
+Editar
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+📊 Ejemplo: Fibonacci
+java
+Copiar
+Editar
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n-1) + fib(n-2);
+}
+🧠 Ventajas vs Desventajas:
+Ventajas	Desventajas
+Código más limpio	Más uso de memoria
+Ideal para estructuras recursivas	Menor eficiencia (sin memoización)
+Facilita algunos problemas	Puede causar StackOverflow
+
+📚 7. Ejercicios típicos en universidades
+✅ Casos comunes:
+Red social: Usuarios (nodos), amistad (aristas)
+
+Red de computadoras: Conexiones con latencia
+
+Sistema de transporte: Estaciones (nodos), rutas con tiempo (pesos)
+
+Mapa de ciudades: Ciudades y carreteras con distancias
+
+Rutas de vuelo: Aeropuertos conectados con vuelos y costos
+
+🔗 8. Consejos para exámenes
+Saber cuándo usar lista o matriz de adyacencia
+
+Poder hacer BFS/DFS “a mano” en papel
+
+Explicar Dijkstra y aplicar tabla de distancias
+
+Memorizar f(n) = g(n) + h(n) de A*
+
+Diferenciar pila y cola
+
+No olvidar caso base en recursión
